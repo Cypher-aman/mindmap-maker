@@ -194,7 +194,13 @@ const MindMap = () => {
       >
         <Background />
         <Controls />
-        {menu && <ContextMenu {...menu} setSidebarOpen={setSidebarOpen} />}
+        {menu && (
+          <ContextMenu
+            onClick={onPaneClick}
+            {...menu}
+            setSidebarOpen={setSidebarOpen}
+          />
+        )}
       </ReactFlow>
       <div className=" flex p-2 gap-3">
         <div className="flex gap-3">

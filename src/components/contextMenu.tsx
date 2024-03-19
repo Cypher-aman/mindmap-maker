@@ -7,6 +7,7 @@ import { Node } from '../utils/interface';
 
 interface ContextMenuProps {
   setSidebarOpen: (open: boolean) => void;
+  onClick: () => any;
   id: string;
   top: number | undefined;
   left: number | undefined;
