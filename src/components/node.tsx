@@ -1,38 +1,45 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import ReactFlow, {
   Controls,
+  applyEdgeChanges,
+  applyNodeChanges,
   addEdge,
   ConnectionLineType,
   useReactFlow,
   ReactFlowProvider,
   Background,
   useStoreApi,
-  ReactFlowInstance,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import CustomNode from './customNode';
 import ContextMenu from './contextMenu';
 import Sidebar from './ui/sidebar';
 import { IoSaveSharp } from 'react-icons/io5';
-import { IoIosAddCircle } from 'react-icons/io';
+import { IoMdDownload, IoIosAddCircle } from 'react-icons/io';
 import { saveMindMap, loadMindMap } from '../utils/storage';
 import toast from 'react-hot-toast';
 import { ReactFlowElContext } from '../providers/ReactFlowEl';
 import DownloadButton from './downloadImage';
 import initialData from '../utils/data';
-import { Edge, Menu, Node, NodeDetails } from '../utils/interface';
 
 const nodeTypes = {
   default: CustomNode,
 };
 
-const initialMenu = {
-  id: '',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-};
+const initialNodes = [
+  {
+    id: '1',
+    position: { x: 0, y: 0 },
+    data: { label: 'Hello' },
+    type: 'default',
+    style: { backgroundColor: '#2196f3', color: 'white', borderColor: 'white' },
+  },
+  {
+    id: '2',
+    position: { x: 100, y: 100 },
+    data: { label: 'World' },
+  },
+];
 
 const MindMap = () => {
   const {
@@ -44,10 +51,10 @@ const MindMap = () => {
     setNodeDetails,
     onNodesChange,
     onEdgesChange,
-  } = useContext<any>(ReactFlowElContext);
-  const [menu, setMenu] = useState<Menu | null>(initialMenu);
+  } = useContext(ReactFlowElContext);
+  const [menu, setMenu] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [popover, setPopover] = useState<NodeDetails | null>();
+  const [popover, setPopover] = useState(null);
   const [activeNodeId, setActiveNodeId] = useState<string>('');
   const [newNodeName, setNewNodeName] = useState<string>('');
   const ref = useRef<HTMLDivElement>();
@@ -67,9 +74,18 @@ const MindMap = () => {
     }
   }, []);
 
+  const onNodeChange = useCallback(
+    (change) => setNodes((nodes) => applyNodeChanges(change, nodes)),
+    []
+  );
+  const onEdgeChange = useCallback(
+    (change) => setEdges((edges) => applyEdgeChanges(change, edges)),
+    []
+  );
+
   const onConnect = useCallback(
-    (connection: Edge) =>
-      setEdges((eds: Edge[]) =>
+    (connection) =>
+      setEdges((eds) =>
         addEdge(
           { ...connection, type: 'smoothstep', style: { stroke: '#964B00' } },
           eds
@@ -79,7 +95,7 @@ const MindMap = () => {
   );
 
   const onNodeContextMenu = useCallback(
-    (e: React.MouseEvent, node: Node) => {
+    (e, node) => {
       // Prevent native context menu from showing
       e.preventDefault();
       setActiveNodeId(node.id);
@@ -137,7 +153,7 @@ const MindMap = () => {
       },
     };
 
-    setNodeDetails((ndD: NodeDetails[]) =>
+    setNodeDetails((ndD) =>
       ndD.concat({
         nodeId: id,
         id: String(Date.now()),
@@ -153,10 +169,8 @@ const MindMap = () => {
   }, [addNodes, store, nodes, newNodeName]);
 
   const onNodeMouseEnter = useCallback(
-    (_: React.MouseEvent, node: Node) => {
-      const detail = nodeDetails.filter(
-        (nd: NodeDetails) => nd.nodeId === node.id
-      )[0];
+    (event, node) => {
+      const detail = nodeDetails.filter((nd) => nd.nodeId === node.id)[0];
 
       setPopover(detail);
     },
@@ -172,7 +186,7 @@ const MindMap = () => {
     toast.success('Saved!');
   };
 
-  const onLoad = (reactFlowInstance: ReactFlowInstance) => {
+  const onLoad = (reactFlowInstance) => {
     reactFlowInstance.fitView();
   };
 
@@ -182,19 +196,19 @@ const MindMap = () => {
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
-        ref={ref as any}
+        ref={ref}
         snapToGrid
-        onLoad={onLoad as any}
+        onLoad={onLoad}
         style={{
           backgroundColor: '#e1e0f7',
         }}
         connectionLineType={ConnectionLineType.Step}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
-        onConnect={onConnect as any}
-        onNodeContextMenu={onNodeContextMenu as any}
+        onConnect={onConnect}
+        onNodeContextMenu={onNodeContextMenu}
         onPaneClick={onPaneClick}
-        onNodeMouseEnter={onNodeMouseEnter as any}
+        onNodeMouseEnter={onNodeMouseEnter}
         onNodeMouseLeave={onNodeMouseLeave}
         fitView
       >

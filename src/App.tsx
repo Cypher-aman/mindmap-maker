@@ -5,7 +5,7 @@ import { AiFillHome } from 'react-icons/ai';
 
 const App = () => {
   return (
-    <main className="grid grid-cols-[auto_1fr] z-20 ">
+    <main className="grid grid-cols-[auto_1fr]">
       <nav className="h-screen bg-violet-500 py-8 shadow">
         <ul>
           <li className="bg-white p-3 text-xl text-violet-500">
