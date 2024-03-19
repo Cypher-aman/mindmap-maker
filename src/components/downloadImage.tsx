@@ -1,13 +1,8 @@
-import {
-  Panel,
-  useReactFlow,
-  getRectOfNodes,
-  getTransformForBounds,
-} from 'reactflow';
+import { useReactFlow, getRectOfNodes, getTransformForBounds } from 'reactflow';
 import { toPng } from 'html-to-image';
 import { IoMdDownload } from 'react-icons/io';
 
-function downloadImage(dataUrl) {
+function downloadImage(dataUrl: string) {
   const a = document.createElement('a');
 
   a.setAttribute('download', 'reactflow.png');
@@ -33,13 +28,13 @@ function DownloadButton() {
       2
     );
 
-    toPng(document.querySelector('.react-flow__viewport'), {
+    toPng(document.querySelector('.react-flow__viewport') as HTMLElement, {
       backgroundColor: '#fff',
       width: imageWidth,
       height: imageHeight,
       style: {
-        width: imageWidth,
-        height: imageHeight,
+        width: imageWidth.toString(),
+        height: imageHeight.toString(),
         transform: `translate(${transform[0]}px, ${transform[1]}px) scale(${transform[2]})`,
       },
     }).then(downloadImage);

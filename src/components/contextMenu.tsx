@@ -3,8 +3,18 @@ import { useReactFlow } from 'reactflow';
 import { HiOutlineDuplicate } from 'react-icons/hi';
 import { MdDelete } from 'react-icons/md';
 import { TbEdit } from 'react-icons/tb';
+import { Node } from '../utils/interface';
 
-const ContextMenu = ({
+interface ContextMenuProps {
+  setSidebarOpen: (open: boolean) => void;
+  id: string;
+  top: number | undefined;
+  left: number | undefined;
+  right: number | undefined;
+  bottom: number | undefined;
+}
+
+const ContextMenu: React.FC<ContextMenuProps> = ({
   setSidebarOpen,
   id,
   top,
@@ -16,18 +26,16 @@ const ContextMenu = ({
   const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
   // `duplicateNode` and `deleteNode` are just some example handlers
   // so I had something to put in the context menu.
-  const duplicateNode = useCallback(
-    (e) => {
-      const node = getNode(id);
-      const position = {
-        x: node.position.x + 50,
-        y: node.position.y + 50,
-      };
+  const duplicateNode = useCallback(() => {
+    const node = getNode(id);
+    if (!node) return;
+    const position = {
+      x: node.position.x + 50,
+      y: node.position.y + 50,
+    };
 
-      addNodes({ ...node, id: `${node.id}-copy`, position });
-    },
-    [id, getNode, addNodes]
-  );
+    addNodes({ ...node, id: `${node?.id}-copy`, position } as Node);
+  }, [id, getNode, addNodes]);
 
   const deleteNode = useCallback(() => {
     setNodes((nodes) => nodes.filter((node) => node.id !== id));
