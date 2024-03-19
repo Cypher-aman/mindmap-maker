@@ -2,35 +2,38 @@ import React, { useContext, useEffect, useState } from 'react';
 import { CgClose } from 'react-icons/cg';
 import { ReactFlowElContext } from '../../providers/ReactFlowEl';
 import { findColorName, findHexCode } from '../../utils/helper';
+import { Node, NodeDetails } from '../../utils/interface';
 
-const Sidebar = ({ open, setOpen, nodeId }) => {
+const Sidebar = ({ open, setOpen, nodeId }: any) => {
   const { nodeDetails, setNodeDetails, nodes, setNodes } =
-    useContext(ReactFlowElContext);
-  const initialNode = nodeId && nodes.find((n) => n.id === nodeId);
+    useContext<any>(ReactFlowElContext);
+  const initialNode = nodeId && nodes.find((n: Node) => n.id === nodeId);
   const initialColor =
     initialNode && findColorName(initialNode.style.backgroundColor);
   const [color, setColor] = useState(initialColor);
-  const [node, setNode] = useState();
-  const [nodeDetail, setNodeDetail] = useState();
+  const [node, setNode] = useState<Node>();
+  const [nodeDetail, setNodeDetail] = useState<NodeDetails>();
 
   useEffect(() => {
     if (initialNode) {
       setNode(initialNode);
-      setNodeDetail(nodeDetails.find((n) => n.nodeId === initialNode.id));
+      setNodeDetail(
+        nodeDetails.find((n: NodeDetails) => n.nodeId === initialNode.id)
+      );
       setColor(findColorName(initialNode.style.backgroundColor));
     }
   }, [initialNode, nodeDetails]);
-  const onInputChange = (e) => {
+  const onInputChange = (e: any) => {
     if (!node) return;
     setNode({ ...node, data: { ...node.data, label: e.target.value } });
   };
 
-  const onTextAreaChange = (e) => {
+  const onTextAreaChange = (e: any) => {
     if (!nodeDetail) return;
     setNodeDetail({ ...nodeDetail, data: e.target.value });
   };
 
-  const onColorChange = (key) => {
+  const onColorChange = (key: string) => {
     if (!node) return;
     setColor(key);
     setNode({
@@ -41,16 +44,18 @@ const Sidebar = ({ open, setOpen, nodeId }) => {
 
   const onSave = () => {
     setNodeDetails(
-      nodeDetails.map((n) => (n.nodeId === node?.id ? nodeDetail : n))
+      nodeDetails.map((n: NodeDetails) =>
+        n.nodeId === node?.id ? nodeDetail : n
+      )
     );
-    setNodes(nodes.map((n) => (n.id === node?.id ? node : n)));
+    setNodes(nodes.map((n: Node) => (n.id === node?.id ? node : n)));
     setOpen(false);
   };
 
   return (
     <>
       <div
-        className={`fixed top-0 w-screen ease-linear bottom-0 transition-all duration-300 z-30 bg-black/50 ${
+        className={`fixed top-0 w-screen ease-linear left-0 bottom-0 transition-all duration-300 z-30 bg-black/50 ${
           open ? ' translate-x-0 ' : ' translate-x-full '
         }`}
       ></div>

@@ -1,7 +1,20 @@
 import { createContext, useState } from 'react';
 import { useNodesState, useEdgesState } from 'reactflow';
+import { NodeDetails } from '../utils/interface';
 
-export const ReactFlowElContext = createContext<unknown>({});
+interface ReactFlowElContextInterface {
+  nodes: any;
+  setNodes: any;
+  edges: any;
+  setEdges: any;
+  nodeDetails: NodeDetails[];
+  setNodeDetails: any;
+  onNodesChange: any;
+  onEdgesChange: any;
+}
+
+export const ReactFlowElContext =
+  createContext<ReactFlowElContextInterface | null>(null);
 
 const ReactFlowEl = ({ children }: { children: React.ReactNode }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
