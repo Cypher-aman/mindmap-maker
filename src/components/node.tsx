@@ -22,6 +22,7 @@ import { ReactFlowElContext } from '../providers/ReactFlowEl';
 import DownloadButton from './downloadImage';
 import initialData from '../utils/data';
 import { NodeDetails, Node, Edge, Menu } from '../utils/interface';
+import Modal from './ui/modal';
 
 const nodeTypes = {
   default: CustomNode,
@@ -43,6 +44,7 @@ const MindMap = () => {
   const [popover, setPopover] = useState<NodeDetails | null>(null);
   const [activeNodeId, setActiveNodeId] = useState<string>('');
   const [newNodeName, setNewNodeName] = useState<string>('');
+  const [onNodeClick, setOnNodeClick] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>();
   const { addNodes } = useReactFlow();
   const store = useStoreApi();
@@ -174,6 +176,10 @@ const MindMap = () => {
     toast.success('Cleared!');
   };
 
+  const onNodeClickEvent = useCallback(() => {
+    setOnNodeClick(true);
+  }, []);
+
   const onLoad = (reactFlowInstance: ReactFlowInstance) => {
     reactFlowInstance.fitView();
   };
@@ -187,6 +193,7 @@ const MindMap = () => {
         ref={ref as any}
         snapToGrid
         onLoad={onLoad as any}
+        onClick={onNodeClickEvent as any}
         style={{
           backgroundColor: '#e1e0f7',
         }}
@@ -252,6 +259,7 @@ const MindMap = () => {
         setOpen={setSidebarOpen}
         nodeId={activeNodeId}
       />
+      <Modal open={onNodeClick} setClose={setOnNodeClick} />
     </div>
   );
 };
