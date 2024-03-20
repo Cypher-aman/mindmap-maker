@@ -6,7 +6,7 @@ This project is a comprehensive mind map application built using React, React Fl
 ![home-page](https://github.com/Cypher-aman/mindmap-maker/assets/71575102/d7194824-86f7-47ea-b350-aa06bb13d228)
 
 
-### Features
+# Features
 
 -   **Create and Edit Nodes:**  Add, edit, and connect nodes to represent concepts and relationships.
 -   **Context Menu:**  Right-click on a node or in the workspace to access a contextual menu with relevant actions:
@@ -28,7 +28,7 @@ This project is a comprehensive mind map application built using React, React Fl
     -   **Deep View:**  Dive deeper into a node by clicking on it. This opens a popup.
     -   ![onNodeClick](https://github.com/Cypher-aman/mindmap-maker/assets/71575102/2290f17c-81eb-47f3-8c97-f34645316957)
 
--   **Save and Download:**  Preserve your mind maps (specify file format) and download them as images for easy sharing.
+-   **Save and Download:**  Preserve your mind maps and download them as images for easy sharing.
 -   ![reactflow (9)](https://github.com/Cypher-aman/mindmap-maker/assets/71575102/ea71a71e-0726-4bb2-b61a-7a95be9676b6)
 
 
