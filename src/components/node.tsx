@@ -14,6 +14,7 @@ import CustomNode from './customNode';
 import ContextMenu from './contextMenu';
 import Sidebar from './ui/sidebar';
 import { IoSaveSharp } from 'react-icons/io5';
+import { IoMdClose } from 'react-icons/io';
 import { IoIosAddCircle } from 'react-icons/io';
 import { saveMindMap, loadMindMap } from '../utils/storage';
 import toast from 'react-hot-toast';
@@ -166,12 +167,19 @@ const MindMap = () => {
     toast.success('Saved!');
   };
 
+  const handleClearMap = () => {
+    setNodes([]);
+    setEdges([]);
+    setNodeDetails([]);
+    toast.success('Cleared!');
+  };
+
   const onLoad = (reactFlowInstance: ReactFlowInstance) => {
     reactFlowInstance.fitView();
   };
 
   return (
-    <div className="h-screen w-full flex flex-col">
+    <div className="h-svh w-full flex flex-col">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -202,7 +210,7 @@ const MindMap = () => {
           />
         )}
       </ReactFlow>
-      <div className=" flex p-2 gap-3">
+      <div className=" flex p-2 gap-3 md:flex-row  flex-wrap ">
         <div className="flex gap-3">
           <input
             type="text"
@@ -214,16 +222,22 @@ const MindMap = () => {
             className="px-2 py-1 bg-green-500 rounded  text-white flex gap-2 items-center"
             onClick={onClick}
           >
-            <IoIosAddCircle /> Add Node
+            <IoIosAddCircle />{' '}
+            <span className="hidden md:inline">Add Node</span>
           </button>
         </div>
         <button
-          className="px-2 py-1 bg-purple-500 rounded  text-white flex gap-2 items-center"
+          className="px-2 max-w-fit py-1 bg-purple-500 rounded  text-white flex gap-2 items-center"
           onClick={handleSaveClick}
         >
-          <IoSaveSharp /> Save Map
+          <IoSaveSharp /> <span className="hidden md:inline">Save Map</span>
         </button>
-
+        <button
+          className="px-2 max-w-fit py-1 bg-red-500 rounded text-white flex gap-2 items-center"
+          onClick={handleClearMap}
+        >
+          <IoMdClose /> <span className="hidden md:inline">Clear Map</span>
+        </button>
         <DownloadButton />
       </div>
       {popover && (

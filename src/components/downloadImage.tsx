@@ -42,10 +42,10 @@ function DownloadButton() {
 
   return (
     <button
-      className="px-2 py-1 bg-blue-500 rounded  text-white flex gap-2 items-center"
+      className="px-2 max-w-fit py-1 bg-blue-500 rounded  text-white flex gap-2 items-center"
       onClick={onClick}
     >
-      <IoMdDownload /> Download Image
+      <IoMdDownload /> <span className="hidden md:inline">Download Image</span>
     </button>
   );
 }
