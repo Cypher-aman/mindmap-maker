@@ -77,6 +77,7 @@ const MindMap = () => {
     (e: React.MouseEvent, node: Node) => {
       // Prevent native context menu from showing
       e.preventDefault();
+      e.stopPropagation();
       setActiveNodeId(node.id);
       // Calculate position of the context menu. We want to make sure it
       // doesn't get positioned off-screen.
@@ -176,7 +177,8 @@ const MindMap = () => {
     toast.success('Cleared!');
   };
 
-  const onNodeClickEvent = useCallback(() => {
+  const onNodeClickEvent = useCallback((event: MouseEvent) => {
+    event.stopPropagation();
     setOnNodeClick(true);
   }, []);
 
@@ -193,7 +195,7 @@ const MindMap = () => {
         ref={ref as any}
         snapToGrid
         onLoad={onLoad as any}
-        onClick={onNodeClickEvent as any}
+        onNodeClick={onNodeClickEvent as any}
         style={{
           backgroundColor: '#e1e0f7',
         }}

@@ -25,8 +25,6 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
   ...props
 }) => {
   const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
-  // `duplicateNode` and `deleteNode` are just some example handlers
-  // so I had something to put in the context menu.
   const duplicateNode = useCallback(() => {
     const node = getNode(id);
     if (!node) return;
