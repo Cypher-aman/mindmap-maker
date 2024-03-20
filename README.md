@@ -3,6 +3,8 @@
 
 This project is a comprehensive mind map application built using React, React Flow, and Vite. It empowers you to visually organize your thoughts and ideas with a rich set of features.
 
+[Live Link]([https://google.com](https://master--radiant-buttercream-687b13.netlify.app/))
+
 ![home-page](https://github.com/Cypher-aman/mindmap-maker/assets/71575102/d7194824-86f7-47ea-b350-aa06bb13d228)
 
 
