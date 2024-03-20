@@ -10,12 +10,14 @@ This project is a comprehensive mind map application built using React, React Fl
 
 -   **Create and Edit Nodes:**  Add, edit, and connect nodes to represent concepts and relationships.
 -   **Context Menu:**  Right-click on a node or in the workspace to access a contextual menu with relevant actions:
+  
     ![context-menu](https://github.com/Cypher-aman/mindmap-maker/assets/71575102/2c11524a-8ec9-404b-903f-46afb8e2dc3c)
     -   **Duplicate:**  Creates a copy of the selected node, streamlining the process of replicating existing concepts and relationships. 
     -   **Delete:**  Removes the selected node from the mind map. Be sure to confirm deletion if necessary to avoid accidental removal of important information.
     -   **Edit:**  Opens a sidebar for detailed editing of the selected node's properties.
 -  **Sidebar:**  Opens upon clicking "Edit" in the context menu and provides options for customizing the selected node:
--  ![sidebar](https://github.com/Cypher-aman/mindmap-maker/assets/71575102/b3807aeb-4641-45d8-ad9d-282e4f697661)
+  
+   ![sidebar](https://github.com/Cypher-aman/mindmap-maker/assets/71575102/b3807aeb-4641-45d8-ad9d-282e4f697661)
     -   **Change Title:**  Edit the main title of the node. 
     -   **Change Color:**  Select a new color from a color picker or palette to visually distinguish the node. 
     -   **Change Description:**  Modify the text description associated with the node for more detailed information.
